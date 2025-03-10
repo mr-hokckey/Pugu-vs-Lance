@@ -1,4 +1,6 @@
 class Pugu extends Phaser.GameObjects.Sprite {
+    // This will probably extend Phaser.Physics.Arcade.Sprite later on, i just haven't implemented
+    // physics for Pugu yet.
     constructor(scene, x, y, texture, frame, playerNo) {
         super(scene, x, y, texture, frame)
         this.playerNo = playerNo
@@ -24,8 +26,11 @@ class Pugu extends Phaser.GameObjects.Sprite {
             this.body.setOffset(this.width / 4, this.height / 2)
         }, null, this.scene)
         this.once('animationcomplete', () => {
+            this.play('pugu-idle')
             this.isAttacking = false
         })
+
+        this.scene.sound.play('sfx-pugu-jab')
     }
 
     update() {

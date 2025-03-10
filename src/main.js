@@ -31,3 +31,5 @@ let keydown = []
 let keyright = []
 
 let stageFloor = 230
+
+let { width, height } = game.config

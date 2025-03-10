@@ -2,17 +2,16 @@ class Play extends Phaser.Scene {
     constructor() {
         super('playScene')
     }
-
-    init() {
-        
-    }
     
     create() {
         this.stage = this.add.image(0, 0, 'stage').setOrigin(0);
 
-        this.pugu = new Pugu(this, 160, stageFloor, 'pugu', 0, 1).setOrigin(0.5, 1)
+        this.physics.world.setBounds(0, 0, width, stageFloor)
 
-        // this.lance = this.add.sprite(300, stageFloor, 'lance', 0).setOrigin(0, 1)
+        this.pugu = new Pugu(this, width / 4, stageFloor, 'pugu', 0, 0).setOrigin(0.5, 1)
+
+        this.lance = new Lance(this, width * 3 / 4, stageFloor, 'lance', 0, 1).setOrigin(0.5, 1)
+
         keyup[0] = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.W)
         keyleft[0] = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A)
         keydown[0] = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.S)
@@ -49,6 +48,7 @@ class Play extends Phaser.Scene {
         // }
 
         this.pugu.update()
+        this.lance.update()
         
         if (Phaser.Input.Keyboard.JustDown(this.menuKey)) {
             this.scene.start('menuScene')
