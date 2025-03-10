@@ -12,18 +12,6 @@ class Pugu extends Phaser.GameObjects.Sprite {
 
         this.speed = 3
         this.isAttacking = false
-
-        if (playerNo == 1) {
-            this.down = p1_down
-            this.left = p1_left
-            this.up = p1_up
-            this.right = p1_right
-        } else if (playerNo == 2) {
-            this.down = p2_down
-            this.left = p2_left
-            this.up = p2_up
-            this.right = p2_right
-        }
     }
 
     jab() {
@@ -41,14 +29,14 @@ class Pugu extends Phaser.GameObjects.Sprite {
     }
 
     update() {
-        if (Phaser.Input.Keyboard.JustDown(p1_down) && this.isAttacking == false) {
+        if (Phaser.Input.Keyboard.JustDown(keydown[this.playerNo]) && this.isAttacking == false) {
             this.jab()
         }
 
-        if (p1_left.isDown && this.isAttacking == false) {
+        if (keyleft[this.playerNo].isDown && this.isAttacking == false) {
             this.x -= this.speed
         }
-        if (p1_right.isDown && this.isAttacking == false) {
+        if (keyright[this.playerNo].isDown && this.isAttacking == false) {
             this.x += this.speed
         }
     }

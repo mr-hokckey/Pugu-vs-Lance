@@ -4,7 +4,7 @@ class Play extends Phaser.Scene {
     }
 
     init() {
-
+        
     }
     
     create() {
@@ -13,20 +13,17 @@ class Play extends Phaser.Scene {
         this.pugu = new Pugu(this, 160, stageFloor, 'pugu', 0, 1).setOrigin(0.5, 1)
 
         // this.lance = this.add.sprite(300, stageFloor, 'lance', 0).setOrigin(0, 1)
+        keyup[0] = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.W)
+        keyleft[0] = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A)
+        keydown[0] = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.S)
+        keyright[0] = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D)
 
-
+        keyup[1] = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.UP)
+        keyleft[1] = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.LEFT)
+        keydown[1] = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.DOWN)
+        keyright[1] = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.RIGHT)
 
         this.menuKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ESC)
-
-        p1_up = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.W)
-        p1_left = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A)
-        p1_down = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.S)
-        p1_right = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D)
-
-        p2_up = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.UP)
-        p2_left = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.LEFT)
-        p2_down = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.DOWN)
-        p2_right = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.RIGHT)
     }
 
     update() {
