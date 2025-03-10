@@ -24,3 +24,5 @@ let game = new Phaser.Game(config)
 
 let p1_up, p1_left, p1_down, p1_right
 let p2_up, p2_left, p2_down, p2_right
+
+let stageFloor = 230
