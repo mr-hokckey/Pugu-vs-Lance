@@ -1,6 +1,4 @@
-class Pugu extends Phaser.GameObjects.Sprite {
-    // This will probably extend Phaser.Physics.Arcade.Sprite later on, i just haven't implemented
-    // physics for Pugu yet.
+class Pugu extends Phaser.Physics.Arcade.Sprite {
     constructor(scene, x, y, texture, frame, playerNo) {
         super(scene, x, y, texture, frame)
         this.playerNo = playerNo
@@ -12,18 +10,26 @@ class Pugu extends Phaser.GameObjects.Sprite {
         this.body.setOffset(this.width / 4, this.height / 2)
         this.body.setCollideWorldBounds(true)
 
-        this.speed = 3
+        this.walkSpeed = 150
         this.isAttacking = false
+
+        this.hitbox = scene.add.image(0, height) // creates a completely transparent, 32x32 
+        scene.physics.world.enable(this.hitbox)
     }
+
 
     jab() {
         this.isAttacking = true
         this.play('pugu-jab')
         this.setX(this.x + 48)
         this.body.setOffset(this.width / 8, this.height / 2)
+
+        this.hitbox.setPosition(this.x + this.width / 3, this.y - this.height / 4)
+
         this.scene.time.delayedCall(250, () => {
             this.setX(this.x - 48)
             this.body.setOffset(this.width / 4, this.height / 2)
+            this.hitbox.setPosition(0, height)
         }, null, this.scene)
         this.once('animationcomplete', () => {
             this.play('pugu-idle')
@@ -34,15 +40,17 @@ class Pugu extends Phaser.GameObjects.Sprite {
     }
 
     update() {
+        this.setVelocityX(0)
+
         if (Phaser.Input.Keyboard.JustDown(keydown[this.playerNo]) && this.isAttacking == false) {
             this.jab()
         }
 
         if (keyleft[this.playerNo].isDown && this.isAttacking == false) {
-            this.x -= this.speed
+            this.setVelocityX(-this.walkSpeed)
         }
         if (keyright[this.playerNo].isDown && this.isAttacking == false) {
-            this.x += this.speed
+            this.setVelocityX(this.walkSpeed)
         }
     }
 }

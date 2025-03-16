@@ -12,9 +12,15 @@ class Lance extends Phaser.Physics.Arcade.Sprite {
 
         this.walkSpeed = 120
         this.rollSpeed = 240
-        this.rollAccel = 600
+        this.rollAccel = 1000
         this.rollGravity = 1500
         this.isRolling = false
+
+        // AP PHYSICS COMING IN CLUTCH FOR THIS!!!
+        // omega = v / r = 240 / 24 = 10 radians = 573 degrees
+        // i don't feel like writing out the rest of this but it's rotational kinematics and stuff :)
+        this.rollSpeedA = 573
+        this.rollAccelA = 2388
     }
 
     roll() {
@@ -24,8 +30,10 @@ class Lance extends Phaser.Physics.Arcade.Sprite {
         this.y -= this.height / 2
         this.body.setGravityY(this.rollGravity)
 
-        this.body.setCircle(this.width / 4, this.width / 4, this.height / 2)
+        this.body.setCircle(24, 64-24, 128-48)
         this.body.setMaxVelocityX(this.rollSpeed)
+        this.body.maxAngular = this.rollSpeedA
+        this.body.setAngularDrag(this.rollAccelA)
         this.body.setDragX(this.rollAccel)
     }
 
@@ -35,12 +43,17 @@ class Lance extends Phaser.Physics.Arcade.Sprite {
 
         this.body.setSize(this.width / 2, this.height)
         this.body.setOffset(this.width / 3, 0)
+        this.setRotation(0)
+        this.setAngularVelocity(0)
     }
 
     update() {
         this.setAccelerationX(0)
+        this.setAngularAcceleration(0)
         if (this.isRolling == false) {
             this.setVelocityX(0)
+            this.setAngularVelocity(0)
+            this.setRotation(0)
         }
 
         if (Phaser.Input.Keyboard.JustDown(keydown[this.playerNo])) {
@@ -54,6 +67,7 @@ class Lance extends Phaser.Physics.Arcade.Sprite {
         if (keyleft[this.playerNo].isDown) {
             if (this.isRolling == true) {
                 this.setAccelerationX(-this.rollAccel)
+                this.setAngularAcceleration(-this.rollAccelA)
             } else {
                 this.setVelocityX(-this.walkSpeed)
             }
@@ -61,9 +75,13 @@ class Lance extends Phaser.Physics.Arcade.Sprite {
         if (keyright[this.playerNo].isDown) {
             if (this.isRolling == true) {
                 this.setAccelerationX(this.rollAccel)
+                this.setAngularAcceleration(this.rollAccelA)
             } else {
                 this.setVelocityX(this.walkSpeed)
             }
         }
+        // if (this.isRolling == false) {
+        //     this.setRotation(0)
+        // }
     }
 }
