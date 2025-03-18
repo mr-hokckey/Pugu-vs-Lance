@@ -8,9 +8,25 @@ class Play extends Phaser.Scene {
 
         this.physics.world.setBounds(0, 0, width, stageFloor)
 
-        this.pugu = new Pugu(this, width / 4, stageFloor, 'pugu', 0, 0).setOrigin(0.5, 1)
+        this.fighter = []
 
-        this.lance = new Lance(this, width * 3 / 4, stageFloor, 'lance', 0, 1).setOrigin(0.5, 0.8)
+        const createFighter = (playerNo) => {
+            let fighter
+            if (game.player[playerNo].character == 2) {
+                game.player[playerNo].character = Phaser.Math.Between(0, 1);
+            }
+            if (game.player[playerNo].character == 0) {
+                this.fighter[playerNo] = new Pugu(this, width / 4 + (width * playerNo / 2), stageFloor, 'pugu', 0, playerNo).setOrigin(0.5, 0.8)
+            } else if (game.player[playerNo].character == 1) {
+                this.fighter[playerNo] = new Lance(this, width / 4 + (width * playerNo / 2), stageFloor, 'lance', 0, playerNo).setOrigin(0.5, 0.8)
+            }
+        }
+
+        createFighter(0)
+        createFighter(1)
+        // this.fighter[0] = new Pugu(this, width / 4, stageFloor, 'pugu', 0, 0).setOrigin(0.5, 0.8)
+
+        // this.fighter[1] = new Lance(this, width * 3 / 4, stageFloor, 'lance', 0, 1).setOrigin(0.5, 0.8)
 
         keyup[0] = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.W)
         keyleft[0] = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A)
@@ -24,12 +40,12 @@ class Play extends Phaser.Scene {
 
         this.menuKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ESC)
 
-        this.debugKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.Y)
+        this.debugKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.U)
     }
 
     update() {
-        this.pugu.update()
-        this.lance.update()
+        this.fighter[0].update()
+        this.fighter[1].update()
         
         if (Phaser.Input.Keyboard.JustDown(this.menuKey)) {
             this.scene.start('menuScene')

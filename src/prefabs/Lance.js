@@ -21,6 +21,9 @@ class Lance extends Phaser.Physics.Arcade.Sprite {
         // i don't feel like writing out the rest of this but it's rotational kinematics and stuff :)
         this.rollSpeedA = 573
         this.rollAccelA = 2388
+
+        this.hitbox = scene.add.image(width * this.playerNo, height) // creates a transparent, 32x32 image. perfect for a hitbox :)
+        scene.physics.world.enable(this.hitbox)
     }
 
     roll() {
@@ -80,8 +83,5 @@ class Lance extends Phaser.Physics.Arcade.Sprite {
                 this.setVelocityX(this.walkSpeed)
             }
         }
-        // if (this.isRolling == false) {
-        //     this.setRotation(0)
-        // }
     }
 }

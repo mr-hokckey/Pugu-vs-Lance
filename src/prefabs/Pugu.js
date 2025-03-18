@@ -13,10 +13,9 @@ class Pugu extends Phaser.Physics.Arcade.Sprite {
         this.walkSpeed = 150
         this.isAttacking = false
 
-        this.hitbox = scene.add.image(0, height) // creates a completely transparent, 32x32 
+        this.hitbox = scene.add.image(width * this.playerNo, height) // creates a transparent, 32x32 image. perfect for a hitbox :)
         scene.physics.world.enable(this.hitbox)
     }
-
 
     jab() {
         this.isAttacking = true
@@ -24,12 +23,12 @@ class Pugu extends Phaser.Physics.Arcade.Sprite {
         this.setX(this.x + 48)
         this.body.setOffset(this.width / 8, this.height / 2)
 
-        this.hitbox.setPosition(this.x + this.width / 3, this.y - this.height / 4)
+        this.hitbox.setPosition(this.x + this.width / 3, this.y)
 
         this.scene.time.delayedCall(250, () => {
             this.setX(this.x - 48)
             this.body.setOffset(this.width / 4, this.height / 2)
-            this.hitbox.setPosition(0, height)
+            this.hitbox.setPosition(width * this.playerNo, height)
         }, null, this.scene)
         this.once('animationcomplete', () => {
             this.play('pugu-idle')
