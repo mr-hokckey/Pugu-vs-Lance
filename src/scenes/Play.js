@@ -11,7 +11,6 @@ class Play extends Phaser.Scene {
         this.fighter = []
 
         const createFighter = (playerNo) => {
-            let fighter
             if (game.player[playerNo].character == 2) {
                 game.player[playerNo].character = Phaser.Math.Between(0, 1);
             }
@@ -24,9 +23,6 @@ class Play extends Phaser.Scene {
 
         createFighter(0)
         createFighter(1)
-        // this.fighter[0] = new Pugu(this, width / 4, stageFloor, 'pugu', 0, 0).setOrigin(0.5, 0.8)
-
-        // this.fighter[1] = new Lance(this, width * 3 / 4, stageFloor, 'lance', 0, 1).setOrigin(0.5, 0.8)
 
         keyup[0] = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.W)
         keyleft[0] = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A)
@@ -41,9 +37,27 @@ class Play extends Phaser.Scene {
         this.menuKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ESC)
 
         this.debugKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.U)
+
+        // "Collision" detection - detect when hitboxes overlap, so characters properly take damage.
+        this.physics.add.overlap(this.fighter[0].hitbox, this.fighter[1], (h0, p1) => {
+            p1.takeDamage()
+            game.player[1].health -= Phaser.Math.Between(8, 12)
+            h0.setPosition(0, height) // to make sure it only hits once
+        })
+        this.physics.add.overlap(this.fighter[1].hitbox, this.fighter[0], (h1, p0) => {
+            p0.takeDamage()
+            game.player[0].health -= Phaser.Math.Between(8, 12)
+            h1.setPosition(width, height)
+        })
+
+        this.gameOver = false
     }
 
     update() {
+        if ((game.player[0].health <= 0 || game.player[1].health <= 0) && !this.gameOver) {
+            this.add.text(width/2, height/2, "gameover")
+            this.gameOver = true
+        }
         this.fighter[0].update()
         this.fighter[1].update()
         

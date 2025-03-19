@@ -19,8 +19,6 @@ class Load extends Phaser.Scene {
     }
 
     create() {
-        this.scene.start('menuScene')
-
         this.anims.create({
             key: 'pugu-idle',
             frameRate: 0,
@@ -57,6 +55,6 @@ class Load extends Phaser.Scene {
             })
         })
 
-        this.scene.start('menuScene')
+        this.scene.start('titleScene')
     }
 }

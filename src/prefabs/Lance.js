@@ -7,7 +7,7 @@ class Lance extends Phaser.Physics.Arcade.Sprite {
         scene.physics.add.existing(this)
 
         this.body.setSize(this.width / 2, this.height)
-        this.body.setOffset(this.width / 3, 0)
+        this.body.setOffset(this.width * (1/6 + this.playerNo * 1/6), 0)
         this.body.setCollideWorldBounds(true)
 
         this.walkSpeed = 120
@@ -15,6 +15,7 @@ class Lance extends Phaser.Physics.Arcade.Sprite {
         this.rollAccel = 1000
         this.rollGravity = 1500
         this.isRolling = false
+        this.isHurt = false
 
         // AP PHYSICS COMING IN CLUTCH FOR THIS!!!
         // omega = v / r = 240 / 24 = 10 radians = 573 degrees
@@ -24,6 +25,11 @@ class Lance extends Phaser.Physics.Arcade.Sprite {
 
         this.hitbox = scene.add.image(width * this.playerNo, height) // creates a transparent, 32x32 image. perfect for a hitbox :)
         scene.physics.world.enable(this.hitbox)
+
+        this.direction = this.playerNo == 0? -1 : 1
+        if (this.direction == -1) {
+            this.setFlipX(true)
+        }
     }
 
     roll() {
@@ -45,7 +51,7 @@ class Lance extends Phaser.Physics.Arcade.Sprite {
         this.play('lance-idle')
 
         this.body.setSize(this.width / 2, this.height)
-        this.body.setOffset(this.width / 3, 0)
+        this.body.setOffset(this.width * (1/6 + this.playerNo * 1/6), 0)
         this.setRotation(0)
         this.setAngularVelocity(0)
     }
