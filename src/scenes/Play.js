@@ -9,15 +9,22 @@ class Play extends Phaser.Scene {
         this.physics.world.setBounds(0, 0, width, stageFloor)
 
         this.fighter = []
+        
+        // Health bars and icons!
+        this.icon = []
+        // this.icon[0] = this.add.sprite(width/10, height/8, 'icons', 0).setOrigin(0.5)
+        // this.icon[1] = this.add.sprite(width * 9/10, height/8, 'icons', 0).setOrigin(0.5)
 
         const createFighter = (playerNo) => {
             if (game.player[playerNo].character == 2) {
                 game.player[playerNo].character = Phaser.Math.Between(0, 1);
             }
-            if (game.player[playerNo].character == 0) {
+            if (game.player[playerNo].character == 0) {    
                 this.fighter[playerNo] = new Pugu(this, width / 4 + (width * playerNo / 2), stageFloor, 'pugu', 0, playerNo).setOrigin(0.5, 0.8)
+                this.icon[playerNo] = this.add.sprite(width * (1 + playerNo * 10)/12, height/8, 'icons', playerNo*2).setOrigin(0.5)
             } else if (game.player[playerNo].character == 1) {
                 this.fighter[playerNo] = new Lance(this, width / 4 + (width * playerNo / 2), stageFloor, 'lance', 0, playerNo).setOrigin(0.5, 0.8)
+                this.icon[playerNo] = this.add.sprite(width * (1 + playerNo * 10)/12, height/8, 'icons', playerNo*2 + 1).setOrigin(0.5)
             }
         }
 
@@ -55,7 +62,7 @@ class Play extends Phaser.Scene {
 
     update() {
         if ((game.player[0].health <= 0 || game.player[1].health <= 0) && !this.gameOver) {
-            this.add.text(width/2, height/2, "gameover")
+            this.add.text(width/2, height/2, "gameover", normalTextConfig).setOrigin(0.5)
             this.gameOver = true
         }
         this.fighter[0].update()

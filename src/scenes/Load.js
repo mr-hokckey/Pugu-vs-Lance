@@ -14,6 +14,10 @@ class Load extends Phaser.Scene {
             frameWidth: 128,
             frameHeight: 128
         })
+        this.load.spritesheet('icons', './assets/icons.png', {
+            frameWidth: 64,
+            frameHeight: 64
+        })
 
         this.load.audio('sfx-pugu-jab', './assets/pugu-jab.wav')
     }

@@ -30,3 +30,10 @@ let keyright = []
 let stageFloor = 230
 
 let { width, height } = game.config
+
+let normalTextConfig = {
+    fontFamily: 'Oswald',
+    fontSize: '28px',
+    color: '#000000',
+    align: 'right',
+}

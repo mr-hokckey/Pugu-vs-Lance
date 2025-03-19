@@ -18,9 +18,12 @@ class Menu extends Phaser.Scene {
             character: 0
         }
 
-        this.cssss = this.add.text(width / 2, height / 4, `${game.player[0].character} vs ${game.player[1].character}`).setOrigin(0.5)
-        this.add.text(width / 2, height / 2, "Press ENTER to play").setOrigin(0.5)
-        this.add.text(width / 2, height * 3 / 4, "P1 uses WASD, P2 uses arrows").setOrigin(0.5)
+        this.p0character = ''
+        this.p1character = ''
+
+        this.selectScreen = this.add.text(width / 2, height / 4, `${this.p0character} vs ${this.p1character}`).setOrigin(0.5)
+        this.add.text(width / 2, height / 2, "P1 uses WASD, P2 uses arrows").setOrigin(0.5)
+        this.add.text(width / 2, height * 3 / 4, "Press DOWN to lock in your characters!").setOrigin(0.5)
 
         keyup[0] = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.W)
         keyleft[0] = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A)
@@ -79,6 +82,14 @@ class Menu extends Phaser.Scene {
             this.scene.start('titleScene')
         }
 
-        this.cssss.text = `${game.player[0].character} vs ${game.player[1].character}`
+        if (game.player[0].character == 0) this.p0character = 'Pugu'
+        if (game.player[0].character == 1) this.p0character = 'Lance'
+        if (game.player[0].character == 2) this.p0character = 'Random'
+
+        if (game.player[1].character == 0) this.p1character = 'Pugu'
+        if (game.player[1].character == 1) this.p1character = 'Lance'
+        if (game.player[1].character == 2) this.p1character = 'Random'
+
+        this.selectScreen.text = `${this.p0character} vs ${this.p1character}`
     }
 }
