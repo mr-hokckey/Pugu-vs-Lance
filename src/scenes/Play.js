@@ -31,6 +31,25 @@ class Play extends Phaser.Scene {
         createFighter(0)
         createFighter(1)
 
+        // Create health bars using text boxes :)
+        this.emptyBar0 = this.add.text(width/12 + 32, height/8, '', {
+            fixedWidth: 100,
+            backgroundColor: '#666666'
+        }).setOrigin(0, 0)
+        this.emptyBar1 = this.add.text(width *11/12 - 32, height/8, '', {
+            fixedWidth: 100,
+            backgroundColor: '#666666'
+        }).setOrigin(1, 0)
+
+        this.healthBar0 = this.add.text(width/12 + 32, height/8, '', {
+            fixedWidth: 100,
+            backgroundColor: '#ee0000'
+        }).setOrigin(0, 0)
+        this.healthBar1 = this.add.text(width *11/12 - 32, height/8, '', {
+            fixedWidth: 100,
+            backgroundColor: '#ee0000'
+        }).setOrigin(1, 0)
+
         keyup[0] = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.W)
         keyleft[0] = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A)
         keydown[0] = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.S)
@@ -50,11 +69,13 @@ class Play extends Phaser.Scene {
             p1.takeDamage()
             game.player[1].health -= Phaser.Math.Between(8, 12)
             h0.setPosition(0, height) // to make sure it only hits once
+            // this.healthBar1.fixedWidth = game.player[1].health
         })
         this.physics.add.overlap(this.fighter[1].hitbox, this.fighter[0], (h1, p0) => {
             p0.takeDamage()
             game.player[0].health -= Phaser.Math.Between(8, 12)
             h1.setPosition(width, height)
+            // this.healthBar0.fixedWidth = game.player[0].health
         })
 
         this.gameOver = false

@@ -2,6 +2,17 @@
 // Name: Leo Assimes
 // Date: 3/3/2025
 
+// 5 components:
+// - physics systems
+// - animation manager
+// - text objects
+// - timers
+// - particle effects (didn't get time)
+
+// ughhhh i didn't get to finish. i'm sorry that this game isn't fully playable.
+// i knew exactly what i wanted to do but finals week has been extremely chaotic and taxing, and
+// so many things are just completely missing. if anything though, i'm proud of what i managed to get working.
+
 "use strict"
 
 let config = {
